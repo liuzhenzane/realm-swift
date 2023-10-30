@@ -1,13 +1,27 @@
 #!/usr/bin/env ruby
 # Matrix of current targets and XCode versions, and is used to add/update/delete XCode cloud workflows.
 
+# The target shold have the following structure, target = <platform>-<scheme>_<extra>
+# this will help to create new workflows and their build actions automatically.
+#
+# platform: ios, tvos, osx, catalyst
+# For any other values different than the ones mentioned above, a default build action will be created 
+# and all the tests must be run on the `ci_post_clone.sh` step.
+#
+# scheme: 
+# swift => RealmSwift
+# swiftui => SwiftUITests
+# swiftuiserver => SwiftUISyncTests
+# default => For any other value Realm will be used as the scheme.
+#
+# To add new workflows which includes new platforms or schemes, the correspondant configuration should be 
+# added to the `xcode_cloud-helper.rb` file.
 module WORKFLOWS
   XCODE_VERSIONS = %w(14.1 14.2 14.3.1)
 
   all = ->(v) { true }
   latest_only = ->(v) { v == XCODE_VERSIONS.last }
   oldest_and_latest = ->(v) { v == XCODE_VERSIONS.first or v == XCODE_VERSIONS.last }
-
 
   TARGETS = {
     'osx' => all,
