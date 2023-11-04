@@ -108,10 +108,10 @@ Pod::Spec.new do |s|
 
   s.frameworks              = 'Security'
   s.module_map              = 'Realm/Realm.modulemap'
-  s.compiler_flags          = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"#{s.version}\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"
+  s.compiler_flags          = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\\\"#{s.version}\\\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"
   s.prepare_command         = 'sh scripts/setup-cocoapods.sh'
   s.source_files            = private_header_files + ['Realm/*.{m,mm}']
-  s.private_header_files    = private_header_files
+#  s.private_header_files    = private_header_files
   s.header_mappings_dir     = 'include'
   s.pod_target_xcconfig     = { 'APPLICATION_EXTENSION_API_ONLY' => 'YES',
                                 'CLANG_CXX_LANGUAGE_STANDARD' => 'c++17',
